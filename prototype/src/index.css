@@ -1,0 +1,178 @@
+@import "tailwindcss";
+
+@theme {
+  /* ——— LUZ palette ——— */
+  --color-navy-950: #0a1624;
+  --color-navy-900: #102338;
+  --color-navy-800: #18324c;
+  --color-navy-700: #23425f;
+  --color-navy-600: #315373;
+  --color-navy-500: #44678a;
+
+  --color-cream-50: #faf7f2;
+  --color-cream-100: #f4efe6;
+  --color-cream-200: #eae2d4;
+  --color-cream-300: #ddd2bd;
+
+  --color-sand-200: #ecdfc6;
+  --color-sand-300: #e0cda6;
+  --color-gold-400: #cba76e;
+  --color-gold-500: #b9935a;
+  --color-gold-600: #a67f44;
+  --color-gold-700: #8a6836;
+
+  --color-ink-900: #1b2a3a;
+  --color-ink-700: #3a4a5c;
+  --color-ink-500: #5c6d80;
+  --color-ink-400: #7d8c9e;
+
+  --color-ok-500: #2e7d5b;
+  --color-ok-100: #e2efe8;
+  --color-warn-500: #a8752a;
+  --color-warn-100: #f4e9d7;
+  --color-danger-500: #b3452f;
+  --color-danger-100: #f5e3de;
+
+  --font-sans: -apple-system, "SF Pro Text", "Segoe UI", system-ui, sans-serif;
+  --font-display: ui-serif, "New York", Georgia, "Times New Roman", serif;
+
+  --shadow-card: 0 1px 2px rgba(16, 35, 56, 0.05), 0 4px 16px rgba(16, 35, 56, 0.07);
+  --shadow-raised: 0 2px 4px rgba(16, 35, 56, 0.08), 0 12px 32px rgba(16, 35, 56, 0.14);
+}
+
+html {
+  background: #0a1624;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  color: var(--color-ink-900);
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+  overscroll-behavior-y: none;
+}
+
+button {
+  font-family: inherit;
+  -webkit-user-select: none;
+  user-select: none;
+  touch-action: manipulation;
+}
+
+input,
+textarea {
+  font-family: inherit;
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+/* Hide scrollbars on horizontal photo rails */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  scrollbar-width: none;
+}
+
+/* ——— simulation animations (pure CSS so they respect reduced motion globally) ——— */
+
+@keyframes luz-ring {
+  0% {
+    transform: scale(0.55);
+    opacity: 0.9;
+  }
+  100% {
+    transform: scale(1.6);
+    opacity: 0;
+  }
+}
+.anim-ring {
+  animation: luz-ring 1.5s ease-out infinite;
+}
+
+@keyframes luz-scanline {
+  0% {
+    transform: translateY(-110%);
+  }
+  100% {
+    transform: translateY(110%);
+  }
+}
+.anim-scanline {
+  animation: luz-scanline 1.9s ease-in-out infinite alternate;
+}
+
+@keyframes luz-dash {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+.anim-dash {
+  stroke-dasharray: 1200;
+  stroke-dashoffset: 1200;
+  animation: luz-dash 7s ease-out forwards;
+}
+
+@keyframes luz-breathe {
+  0%,
+  100% {
+    opacity: 0.55;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+.anim-breathe {
+  animation: luz-breathe 2.2s ease-in-out infinite;
+}
+
+@keyframes luz-wave {
+  0%,
+  100% {
+    transform: scaleY(0.35);
+  }
+  50% {
+    transform: scaleY(1);
+  }
+}
+.anim-wave {
+  animation: luz-wave 0.9s ease-in-out infinite;
+  transform-origin: center;
+}
+
+@keyframes luz-pop {
+  0% {
+    transform: scale(0.6);
+    opacity: 0;
+  }
+  70% {
+    transform: scale(1.06);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+.anim-pop {
+  animation: luz-pop 0.45s cubic-bezier(0.2, 0.9, 0.3, 1.2) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .anim-ring,
+  .anim-scanline,
+  .anim-dash,
+  .anim-breathe,
+  .anim-wave,
+  .anim-pop {
+    animation: none;
+  }
+  .anim-dash {
+    stroke-dashoffset: 0;
+  }
+  * {
+    transition-duration: 0.01ms !important;
+  }
+}
