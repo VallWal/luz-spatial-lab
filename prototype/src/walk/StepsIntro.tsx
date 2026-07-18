@@ -262,8 +262,8 @@ export function StepOverview({ onBack }: { onBack: () => void }) {
 
       <div className="mt-4 grid grid-cols-2 gap-2">
         {['Change the order', 'Skip an area', 'Add an area', 'Resume later'].map((t) => (
-          <div key={t} className="rounded-xl bg-cream-100 px-3.5 py-2.5 text-[13px] font-medium text-ink-500">
-            {t} ✓
+          <div key={t} className="flex items-center gap-2 rounded-xl bg-cream-100 px-3.5 py-2.5 text-[13px] font-medium text-ink-500">
+            <Check size={14} strokeWidth={3} className="shrink-0 text-ok-500" /> {t}
           </div>
         ))}
       </div>

@@ -185,6 +185,19 @@ export function PassportDashboard() {
             <ChevronRight size={20} className="text-cream-50/50" />
           </div>
         </Card>
+        <Card pad={false} className="mt-2.5 px-5 py-1">
+          {EMERGENCY_ENTRIES.map((e, i) => (
+            <div key={e.id}>
+              {i > 0 && <Divider />}
+              <ListRow
+                left={<MockPhoto seed={e.photoSeed} ratio="1/1" className="w-11" rounded="rounded-lg" />}
+                title={e.name}
+                subtitle={e.location}
+                onClick={() => navigate('/passport/emergency')}
+              />
+            </div>
+          ))}
+        </Card>
 
         {/* Checkpoints */}
         <SectionLabel>Checkpoints</SectionLabel>

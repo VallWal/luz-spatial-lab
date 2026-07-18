@@ -219,7 +219,7 @@ export function StepAssets({ onBack }: { onBack: () => void }) {
                   </span>
                   <button
                     onClick={() => dispatch({ type: 'asset-decision', id: s.id, decision: undefined as never })}
-                    className="text-[13px] font-semibold text-gold-700"
+                    className="rounded-full px-3.5 py-2 text-[13px] font-semibold text-gold-700 active:bg-black/5"
                   >
                     Undo
                   </button>
@@ -369,7 +369,9 @@ export function StepRoomDone({ onBack }: { onBack: () => void }) {
 
       <Card className="mt-7" pad={false}>
         <div className="px-5 py-3">
-          <DoneItem>1 room identity</DoneItem>
+          <DoneItem>
+            {state.walk.deferred.includes('lr-doorway-tag') ? 'Room identity — doorway tag on the list for next visit' : '1 room identity'}
+          </DoneItem>
           <DoneItem>
             {w.photosTaken.length} baseline photo{w.photosTaken.length === 1 ? '' : 's'}
           </DoneItem>

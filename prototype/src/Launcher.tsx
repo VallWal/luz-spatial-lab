@@ -96,10 +96,7 @@ export function Launcher() {
             <MockPhoto seed="villa-hero" ratio="16/6" rounded="" label="Casa del Mar · Bolonia, Cádiz" />
           </div>
           <button
-            onClick={() => {
-              reset()
-              dispatch({ type: 'reset' })
-            }}
+            onClick={reset}
             className="mx-auto mt-5 flex items-center gap-2 rounded-full px-4 py-2.5 text-[14px] font-medium text-cream-50/50 active:bg-white/10"
           >
             <RotateCcw size={16} /> Reset prototype

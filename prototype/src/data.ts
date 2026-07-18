@@ -337,8 +337,8 @@ export const RECENT_ACTIVITY: TimelineEvent[] = [
   {
     id: 'act-service',
     date: '14 May 2025',
-    title: 'Air-conditioning service (imported)',
-    detail: 'Historical record added from owner documentation.',
+    title: 'Air-conditioning service record',
+    detail: 'Historical service imported from owner documentation.',
     kind: 'service',
   },
 ]

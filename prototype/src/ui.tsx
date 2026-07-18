@@ -335,7 +335,7 @@ export function MockPhoto({
       linear-gradient(160deg, ${a} 0%, ${b} 55%, ${c} 100%)`,
   }
   return (
-    <div className={`relative w-full overflow-hidden ${rounded} ${className}`} style={style}>
+    <div className={`relative overflow-hidden ${rounded} ${className}`} style={style}>
       <div className="absolute inset-0 bg-[radial-gradient(80%_60%_at_50%_110%,rgba(10,22,36,0.35),transparent)]" />
       {label && (
         <div className="absolute bottom-2 left-2.5 rounded-full bg-navy-950/45 px-2.5 py-1 text-[11px] font-medium text-cream-50">

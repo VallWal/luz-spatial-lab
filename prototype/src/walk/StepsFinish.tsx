@@ -204,7 +204,7 @@ export function StepUtilities({ onBack }: { onBack: () => void }) {
                       : s === 'not-present'
                         ? 'Not present at this property'
                         : u.deepFlow
-                          ? 'Tap to register — the guided example'
+                          ? 'Guided example — tap to start'
                           : 'Tap to register'}
                   </span>
                 </span>
