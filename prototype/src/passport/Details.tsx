@@ -19,6 +19,8 @@ import {
   areaName,
   assetById,
 } from '../data'
+import { openFindings } from '../scenario'
+import { useStore } from '../store'
 import { Card, Divider, ListRow, MockPhoto, SectionLabel, Shell, StatusBadge, TopBar } from '../ui'
 import { BottomNav } from './Passport'
 
@@ -87,22 +89,35 @@ function RoomPlan({
 
 export function RoomDetail({ id }: { id: string }) {
   const { navigate, back } = useRouter()
+  const { state } = useStore()
+  const approved = state.visit.approved
   const [renaming, setRenaming] = useState(false)
   const [name, setName] = useState(areaName(id))
   const isZone = id === 'pool-area' || id === 'garden'
   const checkpoints = PASSPORT_CHECKPOINTS[id] ?? []
   const assets = ASSETS.filter((a) => a.areaId === id || (id === 'pool-area' && a.category === 'Pool'))
+  const roomFindings = openFindings(state).filter((f) => f.roomId === id)
 
   const observations =
-    id === 'pool-area'
-      ? [
-          { date: 'Today', text: 'Water level at skimmer midpoint — exactly where the owner likes it.' },
-          { date: 'Today', text: 'Pump running quietly, filter pressure in the green band.' },
-        ]
-      : [
-          { date: 'Today', text: 'Room captured in good condition. No findings.' },
-          { date: 'Today', text: 'Baseline photos and checkpoints established.' },
-        ]
+    id === 'kitchen'
+      ? approved
+        ? [
+            { date: 'Today', text: 'Moisture below the sink rechecked — improved. Seal replacement still recommended.' },
+            { date: 'Today', text: 'All other checkpoints healthy. Shutter position noted for the owner.' },
+            { date: '12 June 2026', text: 'Moisture patch first observed below the sink. Moderate.' },
+          ]
+        : [{ date: '12 June 2026', text: 'Moisture patch first observed below the sink. Moderate — recheck scheduled today.' }]
+      : id === 'pool-area'
+        ? [
+            { date: approved ? 'Today' : '12 June 2026', text: 'Water level at skimmer midpoint — exactly where the owner likes it.' },
+            { date: approved ? 'Today' : '12 June 2026', text: 'Pump running quietly, filter pressure in the green band.' },
+          ]
+        : [
+            { date: approved ? 'Today' : '12 June 2026', text: 'Room inspected in good condition. No findings.' },
+            { date: '12 June 2026', text: 'Baseline photos and checkpoints established.' },
+          ]
+
+  const roomOk = roomFindings.length === 0
 
   return (
     <Shell>
@@ -110,9 +125,35 @@ export function RoomDetail({ id }: { id: string }) {
         <TopBar onBack={back} title={name} subtitle={isZone ? 'Outdoor zone' : 'Room'} />
 
         <div className="flex items-center justify-between">
-          <StatusBadge kind="ok">All well</StatusBadge>
-          <span className="text-[13px] text-ink-500">Inspected today</span>
+          <StatusBadge kind={roomOk ? 'ok' : 'warn'}>
+            {roomOk ? 'All well' : approved ? 'Watched · improving' : 'Open finding'}
+          </StatusBadge>
+          <span className="text-[13px] text-ink-500">{approved ? 'Inspected today' : 'Last inspected 12 June'}</span>
         </div>
+
+        {roomFindings.length > 0 && (
+          <>
+            <SectionLabel>Open findings</SectionLabel>
+            <Card pad={false} className="px-5 py-1">
+              {roomFindings.map((f) => (
+                <ListRow
+                  key={f.id}
+                  left={
+                    <MockPhoto
+                      seed={f.id === 'moisture-kitchen' ? 'k-sink-then' : 'terrace-handle'}
+                      ratio="1/1"
+                      className="w-11"
+                      rounded="rounded-lg"
+                    />
+                  }
+                  title={f.title}
+                  subtitle={`${f.severity} · ${f.status}`}
+                  onClick={() => navigate(`/passport/findings/${f.id}`)}
+                />
+              ))}
+            </Card>
+          </>
+        )}
 
         <SectionLabel>Latest baseline</SectionLabel>
         <MockPhoto seed={id === 'pool-area' ? 'pool' : `${id}-overview`} ratio="16/9" rounded="rounded-2xl" />
@@ -231,11 +272,25 @@ export function RoomDetail({ id }: { id: string }) {
 
 export function AssetDetail({ id }: { id: string }) {
   const { back } = useRouter()
+  const { state } = useStore()
   const asset = assetById(id) ?? assetById('ac-living')!
   const isAc = asset.id === 'ac-living'
 
   const timeline = isAc
-    ? AC_TIMELINE
+    ? [
+        ...(state.visit.approved
+          ? [
+              {
+                id: 'ac-today',
+                date: 'Today',
+                title: 'Operation confirmed during inspection',
+                detail: 'Running normally at the living-room checkpoint.',
+                kind: 'service' as const,
+              },
+            ]
+          : []),
+        ...AC_TIMELINE,
+      ]
     : [
         {
           id: `${asset.id}-registered`,

@@ -36,13 +36,18 @@ The prototype uses hash routes (`/#/...`):
 | `/#/passport/asset/ac-living` | Asset detail (air-conditioning unit) |
 | `/#/passport/emergency` | Emergency Card |
 | `/#/passport/activity/<id>` | Activity detail |
-| `/#/owner` · `/#/owner/story` · `/#/owner/timeline` | Owner experience |
+| `/#/owner` · `/#/owner/visits/latest` · `/#/owner/findings/<id>` | Owner experience |
+| `/#/demo` | Guided five-minute product demo (Prototype 2) |
+| `/#/inspector` · `/#/inspector/briefing` · `/#/inspector/visit` · `/#/inspector/review` | Recurring inspection (Prototype 2) |
+| `/#/passport/findings/<id>` · `/#/passport/activity` · `/#/passport/documents` | Findings, timeline, documents (Prototype 2) |
+| `/#/operations` | Desktop Operations Preview |
+| `/#/presentation` | Phone-framed presentation screens |
 
 The walk itself is not routed per step — its position lives in saved state, so a refresh resumes exactly where the tester was.
 
 ## Mock state & reset
 
-All prototype state (walk progress, decisions, deferred items, passport creation) is held in React state and persisted to `localStorage` under the key `luz-passport-prototype-v2`. Refreshing never loses progress.
+All prototype state (walk progress, decisions, deferred items, passport creation) is held in React state and persisted to `localStorage` under the key `luz-passport-prototype-v3`. Refreshing never loses progress.
 
 To restart the experience: use **Reset prototype** on the launcher screen (or clear the site's localStorage in the browser). The Completed Passport and Owner views work at any time — they render the canonical demonstration dataset even if the walk was never run, so each of the three journeys can be tested independently.
 
