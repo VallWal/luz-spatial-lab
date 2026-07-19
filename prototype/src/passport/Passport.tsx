@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react'
+import { useState } from 'react'
 import {
   BookOpen,
   CalendarDays,
@@ -62,7 +62,7 @@ export function BottomNav({ active }: { active: 'passport' | 'emergency' | 'owne
 
 export function PassportDashboard() {
   const { navigate } = useRouter()
-  const { state } = useStore()
+  const [showAllAssets, setShowAllAssets] = useState(false)
 
   const openLater = LATER_ITEMS.length
 
@@ -113,8 +113,7 @@ export function PassportDashboard() {
         <Card pad={false} className="px-5 py-2">
           <p className="py-2 text-[14px] leading-relaxed text-ink-700">
             {PROPERTY.type}. {PASSPORT_SUMMARY.areas} areas, {PASSPORT_SUMMARY.assets} registered assets and{' '}
-            {PASSPORT_SUMMARY.checkpoints} checkpoints — created during today's Founding Walk
-            {state.passportCreated ? '' : ' (demonstration data)'}.
+            {PASSPORT_SUMMARY.checkpoints} checkpoints — created during today's Founding Walk.
           </p>
         </Card>
 
@@ -122,7 +121,6 @@ export function PassportDashboard() {
         <SectionLabel>Rooms and zones</SectionLabel>
         <Card pad={false} className="px-5 py-1">
           {AREAS.map((a, i) => {
-            const tappable = a.id === 'living-room' || a.id === 'pool-area'
             const checkpoints = PASSPORT_CHECKPOINTS[a.id]?.length ?? 0
             return (
               <div key={a.id}>
@@ -131,8 +129,7 @@ export function PassportDashboard() {
                   left={<MockPhoto seed={a.id} ratio="1/1" className="w-11" rounded="rounded-lg" />}
                   title={a.name}
                   subtitle={`${checkpoints} checkpoints${a.kind === 'zone' ? ' · outdoor zone' : ''}`}
-                  onClick={tappable ? () => navigate(`/passport/room/${a.id}`) : undefined}
-                  right={tappable ? undefined : <span className="text-[12px] text-ink-400">soon</span>}
+                  onClick={() => navigate(`/passport/room/${a.id}`)}
                 />
               </div>
             )
@@ -142,27 +139,28 @@ export function PassportDashboard() {
         {/* Assets */}
         <SectionLabel>Assets</SectionLabel>
         <Card pad={false} className="px-5 py-1">
-          {ASSETS.slice(0, 6).map((a, i) => {
-            const tappable = a.id === 'ac-living'
-            return (
-              <div key={a.id}>
-                {i > 0 && <Divider />}
-                <ListRow
-                  left={
-                    <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-cream-100 text-navy-700">
-                      <Wrench size={18} />
-                    </span>
-                  }
-                  title={a.name}
-                  subtitle={`${areaName(a.areaId)}${a.brand ? ` · ${a.brand}` : ''}`}
-                  onClick={tappable ? () => navigate('/passport/asset/ac-living') : undefined}
-                  right={tappable ? undefined : <span className="text-[12px] text-ink-400">soon</span>}
-                />
-              </div>
-            )
-          })}
+          {(showAllAssets ? ASSETS : ASSETS.slice(0, 6)).map((a, i) => (
+            <div key={a.id}>
+              {i > 0 && <Divider />}
+              <ListRow
+                left={
+                  <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-cream-100 text-navy-700">
+                    <Wrench size={18} />
+                  </span>
+                }
+                title={a.name}
+                subtitle={`${areaName(a.areaId)}${a.brand ? ` · ${a.brand}` : ''}`}
+                onClick={() => navigate(`/passport/asset/${a.id}`)}
+              />
+            </div>
+          ))}
           <Divider />
-          <div className="py-3 text-center text-[13px] text-ink-500">+ {ASSETS.length - 6} more assets</div>
+          <button
+            onClick={() => setShowAllAssets((s) => !s)}
+            className="w-full py-3 text-center text-[13px] font-semibold text-gold-700 active:bg-cream-50"
+          >
+            {showAllAssets ? 'Show fewer' : `Show all ${ASSETS.length} assets`}
+          </button>
         </Card>
 
         {/* Utilities & Emergency Card */}
@@ -178,11 +176,11 @@ export function PassportDashboard() {
             </span>
             <div className="min-w-0 flex-1">
               <div className="text-[16px] font-semibold text-cream-50">Emergency Card</div>
-              <div className="mt-0.5 text-[13px] text-cream-50/60">
+              <div className="mt-0.5 text-[13px] text-cream-50/70">
                 {PASSPORT_SUMMARY.utilities} utilities · shut-offs with photos and directions
               </div>
             </div>
-            <ChevronRight size={20} className="text-cream-50/50" />
+            <ChevronRight size={20} className="text-cream-50/65" />
           </div>
         </Card>
         <Card pad={false} className="mt-2.5 px-5 py-1">

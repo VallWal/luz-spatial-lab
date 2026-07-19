@@ -67,7 +67,7 @@ export function WalkFlow() {
             <div className="flex flex-col gap-1">
               <span
                 className={`text-[12px] font-semibold uppercase tracking-[0.08em] ${
-                  tone === 'dark' ? 'text-cream-50/50' : 'text-ink-400'
+                  tone === 'dark' ? 'text-cream-50/65' : 'text-ink-400'
                 }`}
               >
                 Founding Walk · Casa del Mar

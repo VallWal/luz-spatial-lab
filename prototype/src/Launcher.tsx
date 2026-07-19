@@ -26,14 +26,14 @@ export function Launcher() {
           </div>
           <div>
             <div className="text-[15px] font-semibold tracking-wide text-cream-50">LUZ</div>
-            <div className="text-[11px] uppercase tracking-[0.14em] text-cream-50/50">Property Passport</div>
+            <div className="text-[11px] uppercase tracking-[0.14em] text-cream-50/65">Property Passport</div>
           </div>
         </div>
 
         <h1 className="font-display mt-6 text-[34px] font-semibold leading-[1.15] text-cream-50">
           Every property deserves a memory.
         </h1>
-        <p className="mt-3 text-[16px] leading-relaxed text-cream-50/60">
+        <p className="mt-3 text-[16px] leading-relaxed text-cream-50/70">
           A clickable prototype of the Founding Walk — how a property becomes a Property Passport during a single visit.
         </p>
 
@@ -68,7 +68,7 @@ export function Launcher() {
               </span>
               <span className="min-w-0 flex-1">
                 <span className="block text-[17px] font-semibold text-cream-50">View Completed Property Passport</span>
-                <span className="mt-0.5 block text-[13px] text-cream-50/50">The result — rooms, assets, Emergency Card</span>
+                <span className="mt-0.5 block text-[13px] text-cream-50/65">The result — rooms, assets, Emergency Card</span>
               </span>
               <ChevronRight size={22} className="shrink-0 text-cream-50/40" />
             </div>
@@ -84,7 +84,7 @@ export function Launcher() {
               </span>
               <span className="min-w-0 flex-1">
                 <span className="block text-[17px] font-semibold text-cream-50">View Owner Experience</span>
-                <span className="mt-0.5 block text-[13px] text-cream-50/50">"Is my house okay?" — answered in seconds</span>
+                <span className="mt-0.5 block text-[13px] text-cream-50/65">"Is my house okay?" — answered in seconds</span>
               </span>
               <ChevronRight size={22} className="shrink-0 text-cream-50/40" />
             </div>
@@ -97,7 +97,7 @@ export function Launcher() {
           </div>
           <button
             onClick={reset}
-            className="mx-auto mt-5 flex items-center gap-2 rounded-full px-4 py-2.5 text-[14px] font-medium text-cream-50/50 active:bg-white/10"
+            className="mx-auto mt-5 flex items-center gap-2 rounded-full px-4 py-2.5 text-[14px] font-medium text-cream-50/65 active:bg-white/10"
           >
             <RotateCcw size={16} /> Reset prototype
           </button>

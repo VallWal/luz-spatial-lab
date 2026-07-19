@@ -46,7 +46,7 @@ export function StepAssets({ onBack }: { onBack: () => void }) {
 
         {acPhase === 'overview' && (
           <>
-            <Lead>One photo of the whole unit, so it's recognisable at a glance.</Lead>
+            <Lead>One photo of the whole unit.</Lead>
             <div className="relative mt-4 overflow-hidden rounded-3xl">
               <MockPhoto seed="ac-unit" ratio="4/3" rounded="rounded-3xl" label={overviewShot ? 'Captured' : ''} />
               {!overviewShot && (
@@ -70,7 +70,7 @@ export function StepAssets({ onBack }: { onBack: () => void }) {
 
         {acPhase === 'nameplate' && (
           <>
-            <Lead>Now the small label with the model details — usually on the side or under the flap.</Lead>
+            <Lead>Now the label with the model details. Usually on the side or under the flap.</Lead>
             <div className="relative mt-4">
               {nameplateShot ? (
                 <NameplatePhoto brand={fields.brand} model={fields.model} serial={fields.serial} />
@@ -112,7 +112,7 @@ export function StepAssets({ onBack }: { onBack: () => void }) {
 
         {acPhase === 'details' && (
           <>
-            <Lead>Read from the nameplate. Correct anything that looks wrong.</Lead>
+            <Lead>Read from the label. Correct anything that looks wrong.</Lead>
             <Card className="mt-4" pad={false}>
               <div className="px-5 py-1">
                 {(
@@ -168,7 +168,7 @@ export function StepAssets({ onBack }: { onBack: () => void }) {
     <div className="flex flex-1 flex-col px-5 pb-44 pt-2">
       <TopBar onBack={onBack} />
       <Title>Noticed in this room</Title>
-      <Lead>Equipment worth remembering. Registering takes well under a minute each.</Lead>
+      <Lead>Equipment worth remembering. Under a minute each.</Lead>
 
       <div className="mt-6 flex flex-col gap-3">
         {SUGGESTED.map((s) => {
@@ -260,7 +260,7 @@ export function StepCheckpoints({ onBack }: { onBack: () => void }) {
     <div className="flex flex-1 flex-col px-5 pb-44 pt-2">
       <TopBar onBack={onBack} />
       <Title>What should future visits check here?</Title>
-      <Lead>These are the things future inspections should remember to check in this room. Your call which ones stay.</Lead>
+      <Lead>These are the things future inspections should remember to check here.</Lead>
 
       <div className="mt-5 flex items-center justify-between">
         <span className="text-[14px] font-medium text-ink-500">{selected.length} selected</span>

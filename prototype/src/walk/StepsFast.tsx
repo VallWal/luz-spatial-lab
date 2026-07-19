@@ -150,8 +150,7 @@ export function StepFastRooms({ onBack }: { onBack: () => void }) {
       <TopBar onBack={onBack} />
       <Title>Four rooms, the quick way</Title>
       <Lead>
-        You've seen the full discovery once. The remaining rooms keep the same rhythm — tag, scan, photos — with only the
-        decisions surfacing.
+        Same rhythm as the Living Room — tag, scan, photos. Only the decisions surface.
       </Lead>
 
       <div className="mt-6 flex flex-col gap-3.5">

@@ -44,8 +44,7 @@ export function StepIntro() {
           {PROPERTY.location} · {PROPERTY.type}
         </p>
         <Lead>
-          Today, this property gets its passport — a lasting memory of its rooms, equipment and condition that every
-          future visit will build on.
+          Today Casa del Mar gets its passport — a lasting memory every future visit builds on.
         </Lead>
       </div>
 
@@ -195,7 +194,7 @@ export function StepEntrance({ onBack }: { onBack: () => void }) {
     <div className="flex flex-1 flex-col px-5 pb-10 pt-2">
       <TopBar onBack={onBack} />
       <Title>Give Casa del Mar its identity</Title>
-      <Lead>Place the first tag beside the main entrance — the property's permanent welcome.</Lead>
+      <Lead>Place the first tag beside the main entrance.</Lead>
       <div className="mt-6">
         <TagScanSim
           subject="Property entrance"
@@ -226,7 +225,7 @@ export function StepOverview({ onBack }: { onBack: () => void }) {
     <div className="flex flex-1 flex-col px-5 pb-44 pt-2">
       <TopBar onBack={onBack} />
       <Title>The walk ahead</Title>
-      <Lead>A calm route through the property. Take the rooms in any order — nothing is lost by changing course.</Lead>
+      <Lead>Take the rooms in any order. Nothing is lost by changing course.</Lead>
 
       <Card className="mt-6" pad={false}>
         <div className="px-5 py-2">

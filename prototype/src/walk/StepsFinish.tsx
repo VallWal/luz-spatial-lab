@@ -75,7 +75,7 @@ export function StepUtilities({ onBack }: { onBack: () => void }) {
 
         {deepPhase === 'closeup' && (
           <>
-            <Lead tone="dark">A clear close-up of the valve itself.</Lead>
+            <Lead tone="dark">A close-up of the valve.</Lead>
             <div className="relative mt-4 overflow-hidden rounded-3xl">
               <MockPhoto seed="utility-valve" ratio="4/3" rounded="rounded-3xl" label={closeupShot ? 'Close-up captured' : ''} />
               {!closeupShot && (
@@ -94,7 +94,7 @@ export function StepUtilities({ onBack }: { onBack: () => void }) {
 
         {deepPhase === 'surroundings' && (
           <>
-            <Lead tone="dark">Now step back — a photo of the surroundings, so anyone can find it under pressure.</Lead>
+            <Lead tone="dark">Step back. One photo of the surroundings, so anyone can find it.</Lead>
             <div className="relative mt-4 overflow-hidden rounded-3xl">
               <MockPhoto seed="utility-room-wide" ratio="4/3" rounded="rounded-3xl" label={surroundShot ? 'Surroundings captured' : ''} />
               {!surroundShot && (
@@ -113,7 +113,7 @@ export function StepUtilities({ onBack }: { onBack: () => void }) {
 
         {deepPhase === 'description' && (
           <>
-            <Lead tone="dark">In your own words — where is it? Plain language outlives every technology.</Lead>
+            <Lead tone="dark">In your own words: where is it?</Lead>
             <div className="mt-4 flex flex-col gap-3">
               {!voiceUsed && (
                 <VoiceSim
@@ -126,7 +126,7 @@ export function StepUtilities({ onBack }: { onBack: () => void }) {
                 />
               )}
               <div className="rounded-2xl bg-white/[0.07] p-4">
-                <div className="text-[12px] font-semibold uppercase tracking-[0.07em] text-cream-50/50">
+                <div className="text-[12px] font-semibold uppercase tracking-[0.07em] text-cream-50/65">
                   Location description {voiceUsed && '· from voice'}
                 </div>
                 <textarea
@@ -188,17 +188,17 @@ export function StepUtilities({ onBack }: { onBack: () => void }) {
                     s === 'registered'
                       ? 'bg-ok-500/20 text-ok-100'
                       : s === 'not-present'
-                        ? 'bg-white/10 text-cream-50/50'
+                        ? 'bg-white/10 text-cream-50/65'
                         : 'bg-gold-500/15 text-gold-400'
                   }`}
                 >
                   {s === 'registered' ? <Check size={19} strokeWidth={3} className="text-ok-100" /> : UTILITY_ICONS[u.id]}
                 </span>
                 <span className="min-w-0 flex-1">
-                  <span className={`block text-[16px] font-medium ${s === 'not-present' ? 'text-cream-50/50' : 'text-cream-50'}`}>
+                  <span className={`block text-[16px] font-medium ${s === 'not-present' ? 'text-cream-50/65' : 'text-cream-50'}`}>
                     {u.name}
                   </span>
-                  <span className="mt-0.5 block truncate text-[13px] text-cream-50/50">
+                  <span className="mt-0.5 block truncate text-[13px] text-cream-50/65">
                     {s === 'registered'
                       ? u.suggestedLocation || 'Registered'
                       : s === 'not-present'
@@ -322,7 +322,7 @@ export function StepExterior({ onBack }: { onBack: () => void }) {
       <TopBar onBack={onBack} />
       <Title>Outside, without the scanner</Title>
       <Lead>
-        Outdoor areas don't need indoor scanning — a zone tag, good photos and the right checkpoints do everything needed.
+        A zone tag, good photos and the right checkpoints. No scanning needed outside.
       </Lead>
 
       <div className="mt-6 flex flex-col gap-3.5">
@@ -453,7 +453,7 @@ export function StepFinal({ onBack }: { onBack: () => void }) {
       </Card>
 
       <p className="mt-4 text-[13px] leading-relaxed text-ink-500">
-        Nothing here blocks the passport — open items simply wait patiently on the next visit's briefing.
+        Nothing here blocks the passport. Open items wait on the next visit's list.
       </p>
 
       <BottomBar>
@@ -501,7 +501,7 @@ export function StepMoment() {
           initial={reduce ? false : { opacity: 0 }}
           animate={{ opacity: line2 ? 1 : 0 }}
           transition={{ duration: 0.8 }}
-          className="mt-4 max-w-[280px] text-[16px] leading-relaxed text-cream-50/60"
+          className="mt-4 max-w-[280px] text-[16px] leading-relaxed text-cream-50/70"
         >
           Future inspections can build on today instead of starting from zero.
         </motion.p>

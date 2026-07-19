@@ -30,16 +30,16 @@ export function StepDiscover({ onBack }: { onBack: () => void }) {
   }
 
   const steps = [
-    { icon: <Tag size={20} />, label: 'Register the doorway', hint: 'A small tag at the door frame — the room’s name badge' },
-    { icon: <ScanLine size={20} />, label: 'Walk the room once', hint: 'The phone sketches the room while you walk' },
-    { icon: <Camera size={20} />, label: 'Capture how it looks today', hint: 'A handful of baseline photos' },
+    { icon: <Tag size={20} />, label: 'Register the doorway', hint: 'A small tag at the door frame' },
+    { icon: <ScanLine size={20} />, label: 'Walk the room once', hint: 'Your phone sketches it as you go' },
+    { icon: <Camera size={20} />, label: 'Capture how it looks today', hint: 'A few reference photos' },
   ]
 
   return (
     <div className="flex flex-1 flex-col px-5 pb-40 pt-2">
       <TopBar onBack={onBack} />
       <Title>Let's discover this room.</Title>
-      <Lead>The Living Room becomes the first room Casa del Mar will remember.</Lead>
+      <Lead>The Living Room is the first room Casa del Mar will remember.</Lead>
 
       <Card className="mt-6" pad={false}>
         <div className="px-5 py-2">
@@ -114,7 +114,7 @@ export function StepReview({ onBack }: { onBack: () => void }) {
     <div className="flex flex-1 flex-col px-5 pb-44 pt-2">
       <TopBar onBack={onBack} />
       <Title>Here's what the room shared</Title>
-      <Lead>Keep what's right, remove what isn't. You stay in charge of what the passport remembers.</Lead>
+      <Lead>Keep what's right. Remove what isn't.</Lead>
 
       <SectionLabel>Room name</SectionLabel>
       <Card pad={false} className="px-5">

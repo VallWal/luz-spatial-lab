@@ -46,7 +46,7 @@ export function TopBar({
   tone?: 'light' | 'dark'
 }) {
   const fg = tone === 'dark' ? 'text-cream-50' : 'text-ink-900'
-  const sub = tone === 'dark' ? 'text-cream-50/60' : 'text-ink-500'
+  const sub = tone === 'dark' ? 'text-cream-50/70' : 'text-ink-500'
   return (
     <div className="-mx-1 mb-4 flex min-h-11 items-center gap-2">
       {onBack ? (
@@ -152,7 +152,7 @@ export function SectionLabel({ children, tone = 'light' }: { children: ReactNode
   return (
     <div
       className={`mb-2.5 mt-7 text-[13px] font-semibold uppercase tracking-[0.08em] ${
-        tone === 'dark' ? 'text-cream-50/50' : 'text-ink-400'
+        tone === 'dark' ? 'text-cream-50/65' : 'text-ink-400'
       }`}
     >
       {children}
@@ -377,7 +377,7 @@ export function StepFade({ children, k }: { children: ReactNode; k: string }) {
       key={k}
       initial={reduce ? false : { opacity: 0, y: 14 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.28, ease: [0.25, 0.6, 0.3, 1] }}
+      transition={{ duration: 0.2, ease: [0.25, 0.6, 0.3, 1] }}
       className="flex min-h-full flex-1 flex-col"
     >
       {children}

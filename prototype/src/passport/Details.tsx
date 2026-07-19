@@ -24,13 +24,32 @@ import { BottomNav } from './Passport'
 
 /* ————————————————— Floor-plan placeholder ————————————————— */
 
-function RoomPlan({ zone = false }: { zone?: boolean }) {
+function RoomPlan({
+  zone = false,
+  name = 'Living Room',
+  checkpointCount = 5,
+  scanned = true,
+}: {
+  zone?: boolean
+  name?: string
+  checkpointCount?: number
+  scanned?: boolean
+}) {
   if (zone)
     return (
-      <div className="flex aspect-[16/8] w-full items-center justify-center rounded-2xl bg-cream-100">
+      <div className="flex aspect-[16/8] w-full items-center justify-center rounded-2xl bg-cream-100 px-6">
         <div className="text-center">
           <div className="text-[13px] font-semibold text-ink-500">Outdoor zone</div>
-          <div className="mt-1 text-[12px] text-ink-400">Located by its zone tag and photos — no indoor plan needed</div>
+          <div className="mt-1 text-[12px] text-ink-400">Located by its zone tag and photos — no plan needed</div>
+        </div>
+      </div>
+    )
+  if (!scanned)
+    return (
+      <div className="flex aspect-[16/8] w-full items-center justify-center rounded-2xl bg-cream-100 px-6">
+        <div className="text-center">
+          <div className="text-[13px] font-semibold text-ink-500">Captured with photos</div>
+          <div className="mt-1 text-[12px] text-ink-400">The room's shape can be added on any future visit</div>
         </div>
       </div>
     )
@@ -57,7 +76,7 @@ function RoomPlan({ zone = false }: { zone?: boolean }) {
           <circle key={i} cx={x} cy={y} r="7" fill="#b9935a" opacity="0.9" />
         ))}
         <text x="24" y="150" fontSize="11" fill="#7d8c9e" fontFamily="sans-serif">
-          Living Room · 5 checkpoints
+          {name} · {checkpointCount} checkpoints
         </text>
       </svg>
     </div>
@@ -99,7 +118,12 @@ export function RoomDetail({ id }: { id: string }) {
         <MockPhoto seed={id === 'pool-area' ? 'pool' : `${id}-overview`} ratio="16/9" rounded="rounded-2xl" />
 
         <SectionLabel>{isZone ? 'Zone' : 'Room plan'}</SectionLabel>
-        <RoomPlan zone={isZone} />
+        <RoomPlan
+          zone={isZone}
+          name={name}
+          checkpointCount={checkpoints.length}
+          scanned={!['bathroom', 'guest-bedroom'].includes(id)}
+        />
 
         {assets.length > 0 && (
           <>
@@ -182,7 +206,13 @@ export function RoomDetail({ id }: { id: string }) {
                 </span>
               }
               title={name}
-              subtitle={isZone ? 'Zone tag registered today' : 'Doorway tag registered today'}
+              subtitle={
+                id === 'guest-bedroom'
+                  ? 'Doorway tag on the list for the next visit'
+                  : isZone
+                    ? 'Zone tag registered today'
+                    : 'Doorway tag registered today'
+              }
               right={
                 <button onClick={() => setRenaming(true)} className="flex items-center gap-1.5 text-[13px] font-semibold text-gold-700">
                   <Pencil size={14} /> Edit
@@ -202,6 +232,19 @@ export function RoomDetail({ id }: { id: string }) {
 export function AssetDetail({ id }: { id: string }) {
   const { back } = useRouter()
   const asset = assetById(id) ?? assetById('ac-living')!
+  const isAc = asset.id === 'ac-living'
+
+  const timeline = isAc
+    ? AC_TIMELINE
+    : [
+        {
+          id: `${asset.id}-registered`,
+          date: 'Today',
+          title: 'Registered in Property Passport',
+          detail: `Identity tag attached in the ${areaName(asset.areaId).toLowerCase()}.`,
+          kind: 'passport' as const,
+        },
+      ]
 
   const facts: [string, string][] = [
     ['Condition', asset.condition],
@@ -225,8 +268,8 @@ export function AssetDetail({ id }: { id: string }) {
         </div>
 
         <div className="mt-4 grid grid-cols-2 gap-3">
-          <MockPhoto seed="ac-unit" ratio="1/1" label="Unit" />
-          <MockPhoto seed="ac-nameplate" ratio="1/1" label="Nameplate" />
+          <MockPhoto seed={isAc ? 'ac-unit' : asset.id} ratio="1/1" label="Unit" />
+          <MockPhoto seed={isAc ? 'ac-nameplate' : `${asset.id}-detail`} ratio="1/1" label={isAc ? 'Nameplate' : 'Detail'} />
         </div>
 
         <SectionLabel>Details</SectionLabel>
@@ -244,30 +287,47 @@ export function AssetDetail({ id }: { id: string }) {
 
         <SectionLabel>Documents</SectionLabel>
         <Card pad={false} className="px-5 py-1">
-          <ListRow
-            left={
-              <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-cream-100 text-navy-700">
-                <FileText size={18} />
-              </span>
-            }
-            title="Operating manual"
-            subtitle="Daikin FTXM-R series · added today"
-          />
-          <Divider />
-          <ListRow
-            left={
-              <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-cream-100 text-navy-700">
-                <ShieldCheck size={18} />
-              </span>
-            }
-            title="Warranty"
-            subtitle={`Valid until ${asset.warrantyUntil ?? '—'}`}
-          />
+          {isAc ? (
+            <>
+              <ListRow
+                left={
+                  <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-cream-100 text-navy-700">
+                    <FileText size={18} />
+                  </span>
+                }
+                title="Operating manual"
+                subtitle="Daikin FTXM-R series · added today"
+              />
+              <Divider />
+              <ListRow
+                left={
+                  <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-cream-100 text-navy-700">
+                    <ShieldCheck size={18} />
+                  </span>
+                }
+                title="Warranty"
+                subtitle={`Valid until ${asset.warrantyUntil ?? '—'}`}
+              />
+            </>
+          ) : (
+            <ListRow
+              left={
+                <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-cream-100 text-navy-700">
+                  <FileText size={18} />
+                </span>
+              }
+              title="No documents yet"
+              subtitle="Manuals and warranties can be added on any visit"
+            />
+          )}
         </Card>
 
         <SectionLabel>Checkpoints watching this asset</SectionLabel>
         <Card pad={false} className="px-5 py-2">
-          {['Check air-conditioning operation', 'Clean filters each season'].map((c) => (
+          {(isAc
+            ? ['Check air-conditioning operation', 'Clean filters each season']
+            : [`Check ${asset.name.toLowerCase()} operation`]
+          ).map((c) => (
             <div key={c} className="flex items-center gap-3 py-2">
               <ClipboardList size={16} className="shrink-0 text-navy-700" />
               <span className="text-[14px] text-ink-700">{c}</span>
@@ -277,7 +337,7 @@ export function AssetDetail({ id }: { id: string }) {
 
         <SectionLabel>Timeline</SectionLabel>
         <Card pad={false} className="px-5 py-1">
-          {AC_TIMELINE.map((e, i) => (
+          {timeline.map((e, i) => (
             <div key={e.id}>
               {i > 0 && <Divider />}
               <div className="flex gap-3.5 py-3.5">

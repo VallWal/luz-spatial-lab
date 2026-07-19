@@ -157,7 +157,7 @@ textarea {
   }
 }
 .anim-pop {
-  animation: luz-pop 0.45s cubic-bezier(0.2, 0.9, 0.3, 1.2) both;
+  animation: luz-pop 0.3s cubic-bezier(0.2, 0.9, 0.3, 1.2) both;
 }
 
 @media (prefers-reduced-motion: reduce) {

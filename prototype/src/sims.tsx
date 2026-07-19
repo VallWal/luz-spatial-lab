@@ -50,7 +50,7 @@ export function TagScanSim({
               </div>
               <div>
                 <div className="text-[18px] font-semibold text-cream-50">Tag linked</div>
-                <div className="mt-1 text-[14px] text-cream-50/60">{subject}</div>
+                <div className="mt-1 text-[14px] text-cream-50/70">{subject}</div>
               </div>
             </>
           ) : mode === 'nfc' ? (
@@ -73,7 +73,7 @@ export function TagScanSim({
                 <div className="text-[18px] font-semibold text-cream-50">
                   {phase === 'scanning' ? 'Hold near the tag…' : `Tag the ${subject.toLowerCase()}`}
                 </div>
-                <div className="mx-auto mt-1 max-w-[260px] text-[14px] leading-relaxed text-cream-50/60">
+                <div className="mx-auto mt-1 max-w-[260px] text-[14px] leading-relaxed text-cream-50/70">
                   {phase === 'scanning'
                     ? 'Keep the top of the phone close to the tag.'
                     : 'Hold the top of your phone against the small round tag.'}
@@ -102,7 +102,7 @@ export function TagScanSim({
                 <div className="text-[18px] font-semibold text-cream-50">
                   {phase === 'scanning' ? 'Looking for the code…' : 'Point at the printed code'}
                 </div>
-                <div className="mt-1 text-[14px] text-cream-50/60">The square code on the same tag.</div>
+                <div className="mt-1 text-[14px] text-cream-50/70">The square code on the same tag.</div>
               </div>
             </>
           )}
